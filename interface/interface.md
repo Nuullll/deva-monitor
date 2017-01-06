@@ -12,8 +12,10 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
 | <a href="#user-content-getHeadDirection">getHeadDirection(int index)</a>                                                                          | 获取指定无人机当前的机头方向        |
 | <a href="#user-content-getBatteryStatus">getBatteryStatus(int index)</a>                                                                          | 获取指定无人机当前的电池状态        |
 | <a href="#user-content-getGimbalStatus">getGimbalStatus(int index)</a>                                                                            | 获取指定无人机当前的云台状态        |
+| <a href="#user-content-getAircraftStatus">getAircraftStatus(int index)</a> | 获取指定无人机的当前状态参数 |
 | <a href="#user-content-getAllAircraftsStatus">getAllAircraftsStatus()</a>                                                                         | 获取所有无人机的当前状态参数        |
 | <a href="#user-content-moveToTarget">moveToTarget(int index, int coordinateMode, float targetX, float targetY, float targetZ, float velocity)</a> | 控制指定无人机飞向目标           |
+| <a href="#user-content-setUpdateRate">setUpdateRate(int index, int updateRate) | 设定指定无人机的主动刷新频率（Hz），如`updateRate=5`则AndroidServer每秒主动向Server发送5次无人机参数，相当于Server调用5次`getAircraftStatus(int index)` |
 
 * <a id="user-content-getCurrentAltitude"> </a>`getCurrentAltitude(int index)`
 
@@ -181,6 +183,31 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
+* <a id="user-content-getAircraftStatus"> </a>`getAircraftStatus(int index)`
+
+    **Request**
+
+    ```json
+    {
+        "getAircraftStatus" : {
+            "index" : 0
+        }
+    }
+    ```
+
+    **Response**
+
+    ```json
+    {
+        "aircraft" : {
+            "index" : 0,
+            ...
+        },
+        "errorCode" : "",
+        "errorMsg" : ""
+    }
+    ```
+
 * <a id="user-content-getAllAircraftsStatus"> </a>`getAllAircraftsStatus()`
 
     **Request**
@@ -253,7 +280,7 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-setUpdateRate"> </a>`setUpdateRate(int index, int rate)`
+* <a id="user-content-setUpdateRate"> </a>`setUpdateRate(int index, int updateRate)`
 
     **Request**
 
@@ -261,7 +288,7 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     {
         "setUpdateRate" : {
             "index" : 2,
-            "rate" : 5
+            "updateRate" : 5
         }
     }
     ```
