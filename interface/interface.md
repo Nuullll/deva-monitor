@@ -6,18 +6,10 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
 
 | Command                                                                                                                                           | Description           |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| <a href="#user-content-getCurrentAltitude">getCurrentAltitude(int index)</a>                                                                      | 获取指定无人机当前的飞行高度        |
-| <a href="#user-content-getCurrentPosition">getCurrentPosition(int index)</a>                                                                      | 获取指定无人机当前的经纬度         |
-| <a href="#user-content-getVelocity">getVelocity(int index)</a>                                                                                    | 获取指定无人机当前的飞行速度，需给定坐标系 |
-| <a href="#user-content-getHeadDirection">getHeadDirection(int index)</a>                                                                          | 获取指定无人机当前的机头方向        |
-| <a href="#user-content-getBatteryStatus">getBatteryStatus(int index)</a>                                                                          | 获取指定无人机当前的电池状态        |
-| <a href="#user-content-getGimbalStatus">getGimbalStatus(int index)</a>                                                                            | 获取指定无人机当前的云台状态        |
-| <a href="#user-content-getAircraftStatus">getAircraftStatus(int index)</a> | 获取指定无人机的当前状态参数 |
-| <a href="#user-content-getAllAircraftsStatus">getAllAircraftsStatus()</a>                                                                         | 获取所有无人机的当前状态参数        |
-| <a href="#user-content-moveToTarget">moveToTarget(int index, int coordinateMode, float targetX, float targetY, float targetZ, float velocity)</a> | 控制指定无人机飞向目标           |
-| <a href="#user-content-setUpdateRate">setUpdateRate(int index, int updateRate) | 设定指定无人机的主动刷新频率（Hz），如`updateRate=5`则AndroidServer每秒主动向Server发送5次无人机参数，相当于Server调用5次`getAircraftStatus(int index)` |
+| <a href="#user-content-getCommand">getCommand(String cmd, int index)</a>                                                                      | 获取类命令        |
+| <a href="#user-content-setCommand">setCommand(String cmd, JSONObject param)</a>                                                                      | 设置类命令         |
 
-* <a id="user-content-getCurrentAltitude"> </a>`getCurrentAltitude(int index)`
+* <a id="user-content-getCommand"> </a>`getCommand(String cmd, int index)`
 
     获取`0`号无人机的当前飞行高度
 
@@ -25,9 +17,8 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     
     ```json
     {
-        "getCurrentAltitude" : {
-            "index" : 0
-        }
+        "getCommand" : "getCurrentAltitude",
+        "index" : 0
     }
     ```
 
@@ -44,17 +35,14 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-getCurrentPosition"> </a>`getCurrentPosition(int index)`
-
     获取`2`号无人机的当前位置（经度、纬度）
 
     **Request**
 
     ```json
     {
-        "getCurrentPosition" : {
-            "index" : 2
-        }
+        "getCommand" : "getCurrentPosition",
+        "index" : 2
     }
     ```
 
@@ -72,15 +60,14 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-getVelocity"> </a>`getVelocity(int index)`
+    获取`3`号无人机的速度
 
     **Request**
 
     ```json
     {
-        "getVelocity" : {
-            "index" : 3
-        }
+        "getCommand" : "getVelocity",
+        "index" : 3
     }
     ```
 
@@ -102,15 +89,14 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
 
     `coordinateMode`指定参考坐标系，以便显示端确定x, y, z轴指向
 
-* <a id="user-content-getHeadDirection"> </a>`getHeadDirection(int index)`
+    获取`0`号无人机的机头指向
 
     **Request**
 
     ```json
     {
-        "getHeadDirection" : {
-            "index" : 0
-        }
+        "getCommand" : "getHeadDirection",
+        "index" : 0
     }
     ```
 
@@ -130,15 +116,15 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
 
     `headDirection`的值为相对于`orientationMode`所指定坐标轴的值，以逆时针方向为正方向
 
-* <a id="user-content-getBatteryStatus"> </a>`getBatteryStatus(int index)`
+    获取`0`号机电池信息
+
 
     **Request**
 
     ```json
     {
-        "getBatteryStatus" : {
-            "index" : 0
-        }
+        "getCommand" : "getBatteryStatus",
+        "index" : 0
     }
     ```
 
@@ -148,22 +134,26 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     {
         "aircraft" : {
             "index" : 0,
-            "batteryPercentage" : 76
+            "battery1" : 76
+            "battery2" : 76
+            "battery3" : 76
+            "battery4" : 76
+            "battery5" : 76
+            "battery6" : 76
         },
         "errorCode" : "",
         "errorMsg" : ""
     }
     ```
 
-* <a id="user-content-getGimbalStatus"> </a>`getGimbalStatus(int index)`
+    获取`2`号机云台信息
 
     **Request**
 
     ```json
     {
-        "getGimbalStatus" : {
-            "index" : 2
-        }
+        "getCommand" : "getGimbalStatus",
+        "index" : 0
     }
     ```
 
@@ -183,15 +173,14 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-getAircraftStatus"> </a>`getAircraftStatus(int index)`
+    获取`0`号机全部信息
 
     **Request**
 
     ```json
     {
-        "getAircraftStatus" : {
-            "index" : 0
-        }
+        "getCommand" : "getAircraftStatus",
+        "index" : 0
     }
     ```
 
@@ -208,13 +197,13 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-getAllAircraftsStatus"> </a>`getAllAircraftsStatus()`
+    获取全部飞机信息
 
     **Request**
 
     ```json
     {
-        "getAllAircraftsStatus" : true
+        "getCommand" : "getAllAircraftsStatus",
     }
     ```
 
@@ -250,13 +239,16 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     }
     ```
 
-* <a id="user-content-moveToTarget"> </a>`moveToTarget(int index, int coordinateMode, float targetX, float targetY, float targetZ, float velocity)`
+* <a id="user-content-setCommand"> </a>`setCommand(String cmd, JSONObject param)`
+
+    无人机`2`执行移动命令
 
     **Request**
 
     ```json
     {
-        "moveToTarget" : {
+        "setCommand" : "moveToTarget"
+        "param" : {
             "index" : 2,
             "coordinateMode" : ...,
             "targetX" : 5.0,
@@ -273,22 +265,23 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     {
         "aircraft" : {
             "index" : 2,
-            "status" : "moving"
+            "response" : "ACK"
         },
         "errorCode" : "",
         "errorMsg" : ""
     }
     ```
 
-* <a id="user-content-setUpdateRate"> </a>`setUpdateRate(int index, int updateRate)`
+    设置无人机`2`号飞控信息更新延迟（ms）
 
     **Request**
 
     ```json
     {
-        "setUpdateRate" : {
+        "setCommand" : "setUpdateDelay"
+        "param" : {
             "index" : 2,
-            "updateRate" : 5
+            "updateDelay" : 200
         }
     }
     ```
@@ -299,7 +292,7 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     {
         "aircraft" : {
             "index" : 2,
-            "updateRate" : 5
+            "updateDelay" : 200
         },
         "errorCode" : "",
         "errorMsg" : ""
