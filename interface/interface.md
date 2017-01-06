@@ -134,11 +134,11 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
     {
         "aircraft" : {
             "index" : 0,
-            "battery1" : 76
-            "battery2" : 76
-            "battery3" : 76
-            "battery4" : 76
-            "battery5" : 76
+            "battery1" : 76,
+            "battery2" : 76,
+            "battery3" : 76,
+            "battery4" : 76,
+            "battery5" : 76,
             "battery6" : 76
         },
         "errorCode" : "",
