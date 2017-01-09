@@ -287,7 +287,7 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
         ```json
         {
             "commandType" : "setCommand",
-            "command" : "setUpdateDelay"
+            "command" : "setUpdateDelay",
             "param" : {
                 "index" : 2,
                 "updateDelay" : 200
