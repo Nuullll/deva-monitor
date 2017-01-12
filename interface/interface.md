@@ -80,7 +80,6 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
         {
             "aircraft" : {
                 "index" : 3,
-                "coordinateMode" : ...,
                 "velocityX" : 2.5,
                 "velocityY" : 0.0,
                 "velocityZ" : 0.0
@@ -90,9 +89,9 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
         }
         ```
 
-        `coordinateMode`指定参考坐标系，以便显示端确定x, y, z轴指向
-
-    - 获取`0`号无人机的机头指向
+        删除`coordinateMode`参数，坐标系为北东地固定坐标
+        
+    - 获取`0`号无人机的机头指向
 
         **Request**
 
@@ -139,11 +138,17 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
             "aircraft" : {
                 "index" : 0,
                 "battery1" : 76,
+                "battery1Temp" : 30,
                 "battery2" : 76,
+                "battery2Temp" : 30,
                 "battery3" : 76,
+                "battery3Temp" : 30,
                 "battery4" : 76,
+                "battery4Temp" : 30,
                 "battery5" : 76,
-                "battery6" : 76
+                "battery5Temp" : 30,
+                "battery6" : 76,
+                "battery6Temp" : 30
             },
             "errorCode" : "",
             "errorMsg" : ""
