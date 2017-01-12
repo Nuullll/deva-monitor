@@ -90,7 +90,7 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
         ```
 
         删除`coordinateMode`参数，坐标系为北东地固定坐标
-        
+
     - 获取`0`号无人机的机头指向
 
         **Request**
@@ -263,7 +263,6 @@ AndroidServer与Server接口初版，根据mobile SDK与具体情况随时修改
             "command" : "moveToTarget",
             "param" : {
                 "index" : 2,
-                "coordinateMode" : ...,
                 "targetX" : 5.0,
                 "targetY" : 3.0,
                 "targetZ" : -1.0,
